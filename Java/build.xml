@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project name="Complier" default="explain" basedir="./">
+    <target name="explain">
+        <echo>
+run : run default program.
+compile : delete old bin and creat new program.
+example : run example.
+        </echo>
+    </target>
+    
+    <target name="run" depends="compile">
+        <echo message="Input your code:"/>
+        <java classname="main.Main">
+            <classpath>
+                <pathelement path="bin/"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="example" depends="compile">
+        <echo>
+原代码为:
+{
+    int i; int j; float v; float x; float[100] a;
+    while( true ) {
+        do i = i + 1; while( a[i] &lt;  v);
+        do j = j - 1; while( a[j] &gt; v);
+        if( i &gt;= j ) break;
+        x = a[i]; a[i] = a[j]; a[j] = x;
+    }
+}
+中间代码为：
+        </echo>
+        <java classname="main.Main" classpath="bin/" input="test"/>
+    </target>
+    
+    <target name="compile" depends="clean">
+        <mkdir dir="bin"/>
+        <javac srcdir="src" destdir="bin" classpath="src"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+</project>
